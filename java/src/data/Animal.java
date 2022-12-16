@@ -10,7 +10,7 @@ public abstract class Animal {
     private double weight;
     private double height;
 
-        protected abstract static class Builder<T extends Builder<T>>{
+        public abstract static class Builder<T extends Builder<T>>{
             private String name;
             private String preferedFood;
             private int age;

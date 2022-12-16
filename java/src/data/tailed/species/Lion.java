@@ -1,4 +1,6 @@
-package data.tailed;
+package data.tailed.species;
+
+import data.tailed.TailedAnimal;
 
 public class Lion extends TailedAnimal {
 

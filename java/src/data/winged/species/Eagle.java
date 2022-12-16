@@ -1,8 +1,8 @@
-package data.winged;
+package data.winged.species;
 
-import data.Animal;
+import data.winged.WingedAnimal;
 
-public class Eagle extends WingedAnimal{
+public class Eagle extends WingedAnimal {
 
     public static class Builder extends WingedAnimal.Builder<Builder>{
 

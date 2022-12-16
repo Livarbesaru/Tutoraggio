@@ -16,7 +16,7 @@ public class Zoo {
     public Animal shortest(){
         return this.animals.stream().reduce((a,b)->a.getHeight()<b.getHeight()?a:b).get();
     }
-    public Animal Highest(){
+    public Animal highest(){
         return this.animals.stream().reduce((a,b)->a.getHeight()>b.getHeight()?a:b).get();
     }
     public Animal lightest(){return this.animals.stream().reduce((a,b)->a.getWeight()<b.getWeight()?a:b).get();}
@@ -52,5 +52,9 @@ public class Zoo {
             return wingedAnimal.get(0);
         }
         return null;
+    }
+
+    public List<Animal> getAnimals(){
+        return animals;
     }
 }

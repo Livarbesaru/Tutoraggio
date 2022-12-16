@@ -67,7 +67,6 @@ public class Zoo {
                 Animal heaviest=heaviestAnimal((List<Animal>) a);
 
                 String typeClass=heaviest.getClass().getSimpleName();
-                System.out.println(typeClass);
                 System.out.println("-----------------"+typeClass+"----------------");
                 System.out.println("shortest "+ typeClass+" "+highest.getName()+" "+highest.getHeight()+" cm");
                 System.out.println("highest "+ typeClass+" "+shortest.getName()+" "+shortest.getHeight()+" cm");
@@ -85,13 +84,19 @@ public class Zoo {
                 }
             }
         }
+        System.out.println("-----------------------Wingspan winner------------------");
         if(winged.size()>0){
             WingedAnimal wingWinner=winged.stream().reduce((w1,w2)->w1.getWingSpan() > w2.getWingSpan()?w1:w2).get();
             System.out.println("The winged animal with widest wing is a "+wingWinner.getClass().getSimpleName()+" "+wingWinner.getName()+" with "+ wingWinner.getWingSpan()+" cm");
+        }else{
+            System.out.println("NONE");
         }
+        System.out.println("-----------------------Tail winner------------------");
         if(tailed.size()>0){
             TailedAnimal tailWinner=tailed.stream().reduce((t1,t2)->t1.getTailLenght() > t2.getTailLenght()?t1:t2).get();
             System.out.println("The winged animal with widest wing is a "+tailWinner.getClass().getSimpleName()+" "+tailWinner.getName()+" with "+ tailWinner.getTailLenght()+" cm");
+        }else{
+            System.out.println("NONE");
         }
     }
 }

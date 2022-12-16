@@ -55,20 +55,22 @@ public class Zoo {
         return animals;
     }
 
-    public void animalStats(){
-        List<Eagle> eagles=new ArrayList<>();
-        List<Tiger> tigers=new ArrayList<>();
-        List<Lion> lions=new ArrayList<>();
-        this.animals.forEach((a)->{
-            if(a instanceof Eagle){
-                eagles.add((Eagle) a);
-            }else if(a instanceof Tiger){
-                tigers.add((Tiger) a);
-            }else if(a instanceof Lion){
-                lions.add((Lion) a);
+    private List<List<? extends Animal>> sortSpecies(List<Animal> animals){
+        List<Class> species=new ArrayList<>();
+        List<List<? extends Animal>> animalsPerSpecies=new ArrayList<>();
+        animals.forEach((x)->{
+            if(!(species.stream().anyMatch(el->el == x.getClass()))){
+                species.add(x.getClass());
             }
         });
-        List<List<? extends Animal>> species= Arrays.asList(eagles,lions,tigers);
+        for(Class c:species){
+            animalsPerSpecies.add((List<? extends Animal>) animals.stream().filter((x)->x.getClass() == c).collect(Collectors.toList()));
+        }
+        return animalsPerSpecies;
+    }
+
+    public void animalStats(){
+        List<List<? extends Animal>> species= sortSpecies(this.animals);
         for(List<? extends Animal> a:species){
             if(a.size()>0){
                 Animal highest=highestAnimal((List<Animal>) a);

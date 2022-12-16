@@ -94,7 +94,7 @@ public class Zoo {
         System.out.println("-----------------------Tail winner------------------");
         if(tailed.size()>0){
             TailedAnimal tailWinner=tailed.stream().reduce((t1,t2)->t1.getTailLenght() > t2.getTailLenght()?t1:t2).get();
-            System.out.println("The winged animal with widest wing is a "+tailWinner.getClass().getSimpleName()+" "+tailWinner.getName()+" with "+ tailWinner.getTailLenght()+" cm");
+            System.out.println("The tailed animal with longest tail is a "+tailWinner.getClass().getSimpleName()+" "+tailWinner.getName()+" with "+ tailWinner.getTailLenght()+" cm");
         }else{
             System.out.println("NONE");
         }

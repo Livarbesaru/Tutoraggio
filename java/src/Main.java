@@ -1,5 +1,5 @@
 import data.Zoo;
-import data.taileda.Lion;
+import data.tailed.Lion;
 import data.winged.Eagle;
 
 public class Main {

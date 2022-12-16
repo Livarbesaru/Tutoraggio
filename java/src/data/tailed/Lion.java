@@ -1,4 +1,4 @@
-package data.taileda;
+package data.tailed;
 
 public class Lion extends TailedAnimal {
 

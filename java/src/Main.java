@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         Zoo zoo=new Zoo();
         zoo.addAnimal(new Eagle.Builder().setName("gg").setWeight(12).setHeight(12.0).setWingedSpan(12.9).build());
-        zoo.addAnimal(new Eagle.Builder().setName("vv").setWeight(6).setHeight(36).setHeight(36.0).setWingedSpan(24.3).build());
+        zoo.addAnimal(new Eagle.Builder().setName("vv").setWeight(6).setHeight(36.0).setWingedSpan(24.3).build());
         zoo.addAnimal(new Lion.Builder().setName("hh").setWeight(48).setHeight(58).setTailLenght(25.6).build());
         zoo.addAnimal(new Lion.Builder().setName("yy").setWeight(49).setHeight(57).setTailLenght(24.6).build());
         zoo.addAnimal(new Tiger.Builder().setName("hh").setWeight(48).setHeight(58).setTailLenght(25.6).build());

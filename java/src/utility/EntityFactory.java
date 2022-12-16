@@ -5,7 +5,7 @@ import data.tailed.species.Lion;
 import data.tailed.species.Tiger;
 import data.winged.species.Eagle;
 
-public class EnityFactory {
+public class EntityFactory {
 
     public static Animal.Builder getInstanceAnimalBuilder(String animal){
         switch (animal){

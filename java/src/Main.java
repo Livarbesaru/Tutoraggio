@@ -1,15 +1,8 @@
-import data.Animal;
 import data.Zoo;
-import data.tailed.TailedAnimal;
 import data.tailed.species.Lion;
 import data.tailed.species.Tiger;
-import data.winged.WingedAnimal;
 import data.winged.species.Eagle;
-import utility.EnityFactory;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {

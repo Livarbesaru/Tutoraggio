@@ -1,13 +1,9 @@
 package data;
 
 import data.tailed.TailedAnimal;
-import data.tailed.species.Lion;
-import data.tailed.species.Tiger;
 import data.winged.WingedAnimal;
-import data.winged.species.Eagle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,16 +13,6 @@ public class Zoo {
     public void addAnimal(Animal animal){
         animals.add(animal);
     }
-
-  /*  public Animal shortest(){
-        return this.animals.stream().reduce((a,b)->a.getHeight()<b.getHeight()?a:b).get();
-    }
-    public Animal highest(){
-        return this.animals.stream().reduce((a,b)->a.getHeight()>b.getHeight()?a:b).get();
-    }
-    public Animal lightest(){return this.animals.stream().reduce((a,b)->a.getWeight()<b.getWeight()?a:b).get();}
-    public Animal heaviest(){return this.animals.stream().reduce((a,b)->a.getWeight()>b.getWeight()?a:b).get();}
-    */
     private TailedAnimal longestTail(List<TailedAnimal> tailedAnimals){
         return tailedAnimals.stream().reduce((a,b)->a.getTailLenght()>b.getTailLenght()?a:b).get();
     }

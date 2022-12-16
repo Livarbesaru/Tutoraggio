@@ -1,31 +1,41 @@
 import data.Animal;
 import data.Zoo;
 import data.tailed.TailedAnimal;
+import data.tailed.species.Lion;
+import data.tailed.species.Tiger;
 import data.winged.WingedAnimal;
+import data.winged.species.Eagle;
 import utility.EnityFactory;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Zoo zoo=new Zoo();
+        zoo.addAnimal(new Eagle.Builder().setName("gg").setWeight(12).setHeight(12.0).setWingedSpan(12.9).build());
+        zoo.addAnimal(new Eagle.Builder().setName("vv").setWeight(6).setHeight(36).setHeight(36.0).setWingedSpan(24.3).build());
+        zoo.addAnimal(new Lion.Builder().setName("hh").setWeight(48).setHeight(58).setTailLenght(25.6).build());
+        zoo.addAnimal(new Lion.Builder().setName("yy").setWeight(49).setHeight(57).setTailLenght(24.6).build());
+        zoo.addAnimal(new Tiger.Builder().setName("hh").setWeight(48).setHeight(58).setTailLenght(25.6).build());
+        zoo.addAnimal(new Tiger.Builder().setName("DD").setWeight(52).setHeight(36).setTailLenght(29.6).build());
         aggiungiAnimale(zoo);
-        /*zoo.addAnimal(new Eagle.Builder().setHeight(12.0).setWingedSpan(12.9).build());
-        zoo.addAnimal(new Eagle.Builder().setHeight(36.0).setWingedSpan(24.3).build());
-        zoo.addAnimal(new Lion.Builder().setHeight(58).setTailLenght(25.6).build());*/
-
       /*System.out.println(zoo.shortest().getHeight());
         System.out.println(zoo.Highest().getHeight());
         System.out.println(zoo.longestTail().getTailLenght());
-        System.out.println(zoo.widestWingSpan().getWingSpan());*/
+        System.out.println(zoo.widestWingSpan().getWingSpan());
+        */
     }
 
     public static void aggiungiAnimale(Zoo zoo){
         Scanner sc=new Scanner(System.in);
-        while(true){
+        /*while(true){
+            System.out.println("-------------------------------------------");
             System.out.println("Choose between eagle, tiger and lion");
-            Animal.Builder builder= EnityFactory.getInstanceAnimalBuilder(sc.nextLine().toLowerCase().replaceAll(" ",""));
+            String animal=sc.nextLine();
+            Animal.Builder builder= EnityFactory.getInstanceAnimalBuilder(animal.toLowerCase().replaceAll(" ",""));
             builder.setFirstContact(Calendar.getInstance());
             System.out.println("Type the name");
             builder.setName(sc.nextLine());
@@ -54,21 +64,8 @@ public class Main {
             if(sc.nextInt()==2){
                 break;
             }
-        }
-        tabellaAnimali(zoo);
+        }*/
+        zoo.animalStats();
     }
-
-    public static void tabellaAnimali(Zoo zoo){
-        System.out.println("animale piu basso "+ zoo.shortest().getName()+" "+zoo.shortest().getHeight()+" cm");
-        System.out.println("animale piu alto "+ zoo.highest().getName()+" "+zoo.highest().getHeight()+" cm");
-        System.out.println("animale piu pesante "+ zoo.heaviest().getName()+" "+zoo.heaviest().getWeight()+" kg");
-        System.out.println("animale piu leggero "+ zoo.lightest().getName()+" "+zoo.lightest().getWeight()+" kg");
-        if(zoo.getAnimals().stream().anyMatch(a->a instanceof TailedAnimal)){
-            System.out.println("animale con la coda piu lunga "+ zoo.longestTail().getName()+" "+zoo.longestTail().getTailLenght()+" cm");
-        }
-        if(zoo.getAnimals().stream().anyMatch(a->a instanceof WingedAnimal)){
-            System.out.println("animale con le ali piu ampie "+ zoo.widestWingSpan().getName()+" "+zoo.widestWingSpan().getWingSpan()+" cm");
-        }
-     }
 
 }

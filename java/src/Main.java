@@ -1,7 +1,6 @@
 import data.Zoo;
-import data.quadrupeds.Lion;
+import data.tailed.Lion;
 import data.winged.Eagle;
-import data.winged.WingedAnimal;
 
 public class Main {
     public static void main(String[] args) {

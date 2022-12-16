@@ -1,4 +1,4 @@
-package data.quadrupeds;
+package data.tailed;
 
 import data.Animal;
 

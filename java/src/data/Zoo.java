@@ -57,6 +57,8 @@ public class Zoo {
 
     public void animalStats(){
         List<List<? extends Animal>> species= sortSpecies(this.animals);
+        List<WingedAnimal> winged=new ArrayList<>();
+        List<TailedAnimal> tailed=new ArrayList<>();
         for(List<? extends Animal> a:species){
             if(a.size()>0){
                 Animal highest=highestAnimal((List<Animal>) a);
@@ -74,12 +76,22 @@ public class Zoo {
                 if(a.get(0) instanceof TailedAnimal){
                     TailedAnimal longTail=longestTail((List<TailedAnimal>) a);
                     System.out.println(typeClass+" with longest tail "+ longTail.getName()+" "+longTail.getTailLenght()+" cm");
+                    tailed.add(longTail);
                 }
                 if(a.get(0) instanceof WingedAnimal){
                     WingedAnimal widestWing=widestWingSpan((List<WingedAnimal>) a);
                     System.out.println(typeClass+" with widest wingspan "+ widestWing.getName()+" "+widestWing.getWingSpan()+" cm");
+                    winged.add(widestWing);
                 }
             }
+        }
+        if(winged.size()>0){
+            WingedAnimal wingWinner=winged.stream().reduce((w1,w2)->w1.getWingSpan() > w2.getWingSpan()?w1:w2).get();
+            System.out.println("The winged animal with widest wing is a "+wingWinner.getClass().getSimpleName()+" "+wingWinner.getName()+" with "+ wingWinner.getWingSpan()+" cm");
+        }
+        if(tailed.size()>0){
+            TailedAnimal tailWinner=tailed.stream().reduce((t1,t2)->t1.getTailLenght() > t2.getTailLenght()?t1:t2).get();
+            System.out.println("The winged animal with widest wing is a "+tailWinner.getClass().getSimpleName()+" "+tailWinner.getName()+" with "+ tailWinner.getTailLenght()+" cm");
         }
     }
 }

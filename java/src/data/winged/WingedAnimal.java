@@ -15,6 +15,10 @@ public abstract class WingedAnimal extends Animal {
 
         public abstract WingedAnimal build();
     }
+
+    public double getWingSpan(){
+        return wingSpan;
+    }
     protected WingedAnimal(Builder<?> builder) {
         super(builder);
         this.wingSpan= builder.wingSpan;

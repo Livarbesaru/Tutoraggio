@@ -1,8 +1,8 @@
 package data.quadrupeds;
 
-public class Tiger extends QuadrupedsAnimal{
+public class Tiger extends TailedAnimal {
 
-    public static class Builder extends QuadrupedsAnimal.Builder<Builder>{
+    public static class Builder extends TailedAnimal.Builder<Builder>{
 
         @Override
         public Builder self() {
@@ -10,7 +10,7 @@ public class Tiger extends QuadrupedsAnimal{
         }
 
         @Override
-        public QuadrupedsAnimal build() {
+        public TailedAnimal build() {
             return new Tiger(this);
         }
     }

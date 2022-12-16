@@ -2,7 +2,7 @@ package data.quadrupeds;
 
 import data.Animal;
 
-public abstract class QuadrupedsAnimal extends Animal {
+public abstract class TailedAnimal extends Animal {
     private double tailLenght;
     abstract public static class Builder<T extends Animal.Builder<T>> extends Animal.Builder<T>{
         private double tailLenght;
@@ -13,10 +13,12 @@ public abstract class QuadrupedsAnimal extends Animal {
         }
         public abstract T self();
 
-        public abstract QuadrupedsAnimal build();
+        public abstract TailedAnimal build();
     }
-
-    protected QuadrupedsAnimal(Builder builder) {
+    public double getTailLenght(){
+        return tailLenght;
+    }
+    protected TailedAnimal(Builder builder) {
         super(builder);
         this.tailLenght= builder.tailLenght;
     }

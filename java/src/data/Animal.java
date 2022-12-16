@@ -38,7 +38,7 @@ public abstract class Animal {
                 return self();
             }
 
-            public T serHeight(double height){
+            public T setHeight(double height){
                 this.height=height;
                 return self();
             }
@@ -59,4 +59,27 @@ public abstract class Animal {
         this.height=builder.height;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPreferedFood() {
+        return preferedFood;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public Calendar getFirstContact() {
+        return firstContact;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getHeight() {
+        return height;
+    }
 }

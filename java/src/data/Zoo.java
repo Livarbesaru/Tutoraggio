@@ -1,6 +1,6 @@
 package data;
 
-import data.tailed.TailedAnimal;
+import data.taileda.TailedAnimal;
 import data.winged.WingedAnimal;
 
 import java.util.ArrayList;

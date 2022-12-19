@@ -1,6 +1,11 @@
 package data.tailed.species;
 
+import data.Animal;
 import data.tailed.TailedAnimal;
+import utility.Concat;
+
+import java.lang.reflect.Field;
+import java.util.Set;
 
 public class Tiger extends TailedAnimal {
 

@@ -2,46 +2,56 @@ package data;
 
 import data.tailed.TailedAnimal;
 import data.winged.WingedAnimal;
+import data.winged.species.Eagle;
+import utility.Concat;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Zoo {
-    private List<Animal> animals=new ArrayList<>();
+    private HashMap<Class,List<? extends Animal>> animals=new HashMap();
 
-    public void addAnimal(Animal animal){
-        animals.add(animal);
+    public <T extends Animal> void addAnimal(T animal){
+        List<T> listSpecie=null;
+        if(animals.containsKey(animal.getClass())){
+            listSpecie= (List<T>) animals.get(animal.getClass());
+            listSpecie.add(animal);
+        }else{
+            listSpecie=new ArrayList<T>();
+            listSpecie.add(animal);
+            animals.put(animal.getClass(),listSpecie);
+        }
     }
-    private TailedAnimal longestTail(List<TailedAnimal> tailedAnimals){
+    private TailedAnimal longestTail(List<? extends TailedAnimal> tailedAnimals){
         return tailedAnimals.stream().reduce((a,b)->a.getTailLenght()>b.getTailLenght()?a:b).get();
     }
 
-    private WingedAnimal widestWingSpan(List<WingedAnimal> wingedAnimals){
+    private WingedAnimal widestWingSpan(List<? extends WingedAnimal> wingedAnimals){
         return wingedAnimals.stream().reduce((a,b)->a.getWingSpan()>b.getWingSpan()?a:b).get();
     }
 
-    private Animal heaviestAnimal(List<Animal> animals){
+    private Animal heaviestAnimal(List<? extends Animal> animals){
         return animals.stream().reduce((a,b)->a.getWeight()<b.getWeight()?a:b).get();
     }
 
-    private Animal lightiestAnimal(List<Animal> animals){
+    private Animal lightiestAnimal(List<? extends Animal> animals){
         return animals.stream().reduce((a,b)->a.getWeight()>b.getWeight()?a:b).get();
     }
 
-    private Animal highestAnimal(List<Animal> animals){
+    private Animal highestAnimal(List<? extends Animal> animals){
         return animals.stream().reduce((a,b)->a.getHeight()<b.getHeight()?a:b).get();
     }
 
-    private Animal shortestAnimal(List<Animal> animals){
+    private Animal shortestAnimal(List<? extends Animal> animals){
         return animals.stream().reduce((a,b)->a.getHeight()>b.getHeight()?a:b).get();
     }
 
-    public List<Animal> getAnimals(){
+    public HashMap<Class,List<? extends Animal>> getAnimals(){
         return animals;
     }
 
-    private List<List<? extends Animal>> sortSpecies(List<Animal> animals){
+    /*private List<List<? extends Animal>> sortSpecies(List<Animal> animals){
         List<Class> species=new ArrayList<>();
         List<List<? extends Animal>> animalsPerSpecies=new ArrayList<>();
         animals.forEach((x)->{
@@ -53,50 +63,49 @@ public class Zoo {
             animalsPerSpecies.add((List<? extends Animal>) animals.stream().filter((x)->x.getClass() == c).collect(Collectors.toList()));
         }
         return animalsPerSpecies;
+    }*/
+
+    public Set<Field> distinctiveCharacteristics(List<? extends Animal> specie){
+        Set<Field> fields=null;
+        if(specie.size()>0){
+            fields=Set.of(specie.get(0).getCharacteristics());
+        }
+        return fields;
     }
 
     public void animalStats(){
-        List<List<? extends Animal>> species= sortSpecies(this.animals);
-        List<WingedAnimal> winged=new ArrayList<>();
-        List<TailedAnimal> tailed=new ArrayList<>();
-        for(List<? extends Animal> a:species){
+        Map<String,List<Animal>> specialInFields=new HashMap<String,List<Animal>>();
+        for(List<? extends Animal> a:animals.values()){
             if(a.size()>0){
-                Animal highest=highestAnimal((List<Animal>) a);
-                Animal shortest=shortestAnimal((List<Animal>) a);
-                Animal lightest=lightiestAnimal((List<Animal>) a);
-                Animal heaviest=heaviestAnimal((List<Animal>) a);
+                Animal highest=highestAnimal(a);
+                Animal shortest=shortestAnimal(a);
+                Animal lightest=lightiestAnimal(a);
+                Animal heaviest=heaviestAnimal(a);
 
-                String typeClass=heaviest.getClass().getSimpleName();
+                String typeClass=highest.getClass().getSimpleName();
                 System.out.println("-----------------"+typeClass+"----------------");
                 System.out.println("shortest "+ typeClass+" "+highest.getName()+" "+highest.getHeight()+" cm");
                 System.out.println("highest "+ typeClass+" "+shortest.getName()+" "+shortest.getHeight()+" cm");
                 System.out.println("lightest "+ typeClass+" "+ heaviest.getName()+" "+heaviest.getWeight()+" kg");
                 System.out.println("heaviest "+ typeClass+" "+ lightest.getName()+" "+lightest.getWeight()+" kg");
-                if(a.get(0) instanceof TailedAnimal){
-                    TailedAnimal longTail=longestTail((List<TailedAnimal>) a);
-                    System.out.println(typeClass+" with longest tail "+ longTail.getName()+" "+longTail.getTailLenght()+" cm");
-                    tailed.add(longTail);
-                }
-                if(a.get(0) instanceof WingedAnimal){
-                    WingedAnimal widestWing=widestWingSpan((List<WingedAnimal>) a);
-                    System.out.println(typeClass+" with widest wingspan "+ widestWing.getName()+" "+widestWing.getWingSpan()+" cm");
-                    winged.add(widestWing);
+                
+                for(Field f:distinctiveCharacteristics(a)){
+                    if(!(f.getType() == String.class) && !(f.getType() != boolean.class)){
+                       Animal bestInField=a.stream().reduce((a1,a2)->
+                          Double.parseDouble( a1.getFieldValue(f,f.getType()).toString()) >
+                           Double.parseDouble(a2.getFieldValue(f,f.getType()).toString())
+                               ?a1:a2
+                       ).get();
+                        if(specialInFields.containsKey(f.getName())){
+                            specialInFields.get(f.getName()).add(bestInField);
+                        }else{
+                            List<Animal> listToAdd=new ArrayList<>();
+                            listToAdd.add(bestInField);
+                            specialInFields.put(f.getName(),listToAdd);
+                        }
+                    }
                 }
             }
-        }
-        System.out.println("-----------------------Wingspan winner------------------");
-        if(winged.size()>0){
-            WingedAnimal wingWinner=winged.stream().reduce((w1,w2)->w1.getWingSpan() > w2.getWingSpan()?w1:w2).get();
-            System.out.println("The winged animal with widest wing is a "+wingWinner.getClass().getSimpleName()+" "+wingWinner.getName()+" with "+ wingWinner.getWingSpan()+" cm");
-        }else{
-            System.out.println("NONE");
-        }
-        System.out.println("-----------------------Tail winner------------------");
-        if(tailed.size()>0){
-            TailedAnimal tailWinner=tailed.stream().reduce((t1,t2)->t1.getTailLenght() > t2.getTailLenght()?t1:t2).get();
-            System.out.println("The tailed animal with longest tail is a "+tailWinner.getClass().getSimpleName()+" "+tailWinner.getName()+" with "+ tailWinner.getTailLenght()+" cm");
-        }else{
-            System.out.println("NONE");
         }
     }
 }

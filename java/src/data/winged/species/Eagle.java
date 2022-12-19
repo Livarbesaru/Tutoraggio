@@ -1,6 +1,11 @@
 package data.winged.species;
 
+import data.Animal;
 import data.winged.WingedAnimal;
+import utility.Concat;
+
+import java.lang.reflect.Field;
+import java.util.Set;
 
 public class Eagle extends WingedAnimal {
 
@@ -21,4 +26,5 @@ public class Eagle extends WingedAnimal {
     protected Eagle(Builder builder) {
         super(builder);
     }
+
 }

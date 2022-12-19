@@ -1,8 +1,12 @@
 package data;
 
+import data.interfaces.Specie;
+import utility.Concat;
+
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
-public abstract class Animal {
+public abstract class Animal implements Specie {
     private String name;
     private String preferedFood;
     private int age;
@@ -59,6 +63,22 @@ public abstract class Animal {
         this.height=builder.height;
     }
 
+    private Field[] getCharacteristics(Class animalClass) {
+        if(animalClass == Animal.class){
+            return new Field[]{};
+        }else{
+            return (Concat.concat(animalClass.getDeclaredFields(),getCharacteristics(animalClass.getSuperclass())));
+        }
+    }
+
+    public Field[] getCharacteristics() {
+        if(this.getClass() == Animal.class){
+            return new Field[]{};
+        }else{
+            return (Concat.concat(this.getClass().getDeclaredFields(),getCharacteristics(this.getClass().getSuperclass())));
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -81,5 +101,14 @@ public abstract class Animal {
 
     public double getHeight() {
         return height;
+    }
+
+    public <T> T getFieldValue(Field f,Class<T> t){
+        try {
+            f.setAccessible(true);
+            return (T)f.get(this);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,8 +1,14 @@
 package data.tailed.species;
 
+import data.Animal;
 import data.tailed.TailedAnimal;
+import utility.Concat;
+
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Lion extends TailedAnimal {
+
 
     public static class Builder extends TailedAnimal.Builder<Builder>{
 

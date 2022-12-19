@@ -74,7 +74,7 @@ public class Zoo {
     }
 
     public void animalStats(){
-        Map<String,List<Animal>> specialInFields=new HashMap<String,List<Animal>>();
+        Map<Field,List<Animal>> specialInFields=new HashMap<Field,List<Animal>>();
         for(List<? extends Animal> a:animals.values()){
             if(a.size()>0){
                 Animal highest=highestAnimal(a);
@@ -88,24 +88,35 @@ public class Zoo {
                 System.out.println("highest "+ typeClass+" "+shortest.getName()+" "+shortest.getHeight()+" cm");
                 System.out.println("lightest "+ typeClass+" "+ heaviest.getName()+" "+heaviest.getWeight()+" kg");
                 System.out.println("heaviest "+ typeClass+" "+ lightest.getName()+" "+lightest.getWeight()+" kg");
+
+                Set<Field> fields1=distinctiveCharacteristics(a);
                 
-                for(Field f:distinctiveCharacteristics(a)){
-                    if(!(f.getType() == String.class) && !(f.getType() != boolean.class)){
+                for(Field f:fields1){
+                    if(!(f.getType() == String.class) && !(f.getType() == boolean.class)){
                        Animal bestInField=a.stream().reduce((a1,a2)->
                           Double.parseDouble( a1.getFieldValue(f,f.getType()).toString()) >
                            Double.parseDouble(a2.getFieldValue(f,f.getType()).toString())
                                ?a1:a2
                        ).get();
-                        if(specialInFields.containsKey(f.getName())){
-                            specialInFields.get(f.getName()).add(bestInField);
+                        if(specialInFields.containsKey(f)){
+                            specialInFields.get(f).add(bestInField);
                         }else{
                             List<Animal> listToAdd=new ArrayList<>();
                             listToAdd.add(bestInField);
-                            specialInFields.put(f.getName(),listToAdd);
+                            specialInFields.put(f,listToAdd);
                         }
                     }
                 }
+
             }
         }
+        specialInFields.forEach((key,value)->
+            System.out.println("\nthe winner in "+key.getName()+" is \n"+
+                    value.stream().reduce((a,b)->
+                        Double.parseDouble(a.getFieldValue(key,key.getType()).toString())
+                            > Double.parseDouble(b.getFieldValue(key,key.getType()).toString())?a:b
+                    ).get().toString()
+            )
+        );
     }
 }

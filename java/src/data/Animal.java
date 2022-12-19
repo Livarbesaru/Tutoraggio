@@ -79,6 +79,22 @@ public abstract class Animal implements Specie {
         }
     }
 
+    private Field[] getCharacteristicsTillAnimal(Class animalClass) {
+        if(animalClass == Animal.class.getSuperclass()){
+            return new Field[]{};
+        }else{
+            return (Concat.concat(animalClass.getDeclaredFields(),getCharacteristics(animalClass.getSuperclass())));
+        }
+    }
+
+    public Field[] getCharacteristicsTillAnimal() {
+        if(this.getClass() == Animal.class.getSuperclass()){
+            return new Field[]{};
+        }else{
+            return (Concat.concat(this.getClass().getDeclaredFields(),getCharacteristics(this.getClass().getSuperclass())));
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -110,5 +126,16 @@ public abstract class Animal implements Specie {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public String toString(){
+            String s="";
+            s+="Class: " +this.getClass().getSimpleName()+" \n";
+            s+="Name: " +this.name+" \n";
+            for(Field f:this.getCharacteristicsTillAnimal()){
+                s+=f.getName()+" "+getFieldValue(f,f.getType()).toString()+"\n";
+            }
+            return s;
     }
 }

@@ -37,23 +37,9 @@ public class Zoo {
         return animals;
     }
 
-    /*private List<List<? extends Animal>> sortSpecies(List<Animal> animals){
-        List<Class> species=new ArrayList<>();
-        List<List<? extends Animal>> animalsPerSpecies=new ArrayList<>();
-        animals.forEach((x)->{
-            if(!(species.stream().anyMatch(el->el == x.getClass()))){
-                species.add(x.getClass());
-            }
-        });
-        for(Class c:species){
-            animalsPerSpecies.add((List<? extends Animal>) animals.stream().filter((x)->x.getClass() == c).collect(Collectors.toList()));
-        }
-        return animalsPerSpecies;
-    }*/
-
     public Set<Field> distinctiveCharacteristics(List<? extends Animal> specie){
         Set<Field> fields=null;
-        if(specie.size()>0){
+        if(!specie.isEmpty()){
             fields=Set.of(specie.get(0).getCharacteristics());
         }
         return fields;
@@ -78,10 +64,10 @@ public class Zoo {
                 Set<Field> fields1=distinctiveCharacteristics(a);
                 
                 for(Field f:fields1){
-                    if(f.getType() != String.class && f.getType() != boolean.class){
+                    if(f.getType() != String.class && f.getType() != boolean.class && f.getType() != Calendar.class && f.getType() != Date.class){
                        Animal bestInField=a.stream().reduce((a1,a2)->
-                          Double.parseDouble( a1.getFieldValue(f,f.getType()).toString()) >
-                           Double.parseDouble(a2.getFieldValue(f,f.getType()).toString())
+                          Double.parseDouble( a1.getFieldValue(f).toString()) >
+                           Double.parseDouble(a2.getFieldValue(f).toString())
                                ?a1:a2
                        ).get();
                         if(specialInFields.containsKey(f)){
@@ -99,8 +85,8 @@ public class Zoo {
         specialInFields.forEach((key,value)->
             System.out.println("\nthe winner in "+key.getName()+" is \n"+
                     value.stream().reduce((a,b)->
-                        Double.parseDouble(a.getFieldValue(key,key.getType()).toString())
-                            > Double.parseDouble(b.getFieldValue(key,key.getType()).toString())?a:b
+                        Double.parseDouble(a.getFieldValue(key).toString())
+                            > Double.parseDouble(b.getFieldValue(key).toString())?a:b
                     ).get().toString()
             )
         );

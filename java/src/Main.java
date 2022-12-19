@@ -31,8 +31,8 @@ public class Main {
     }
 
     public static void aggiungiAnimale(Zoo zoo){
-        Scanner sc=new Scanner(System.in);
-        /*while(true){
+        /*Scanner sc=new Scanner(System.in);
+        while(true){
             System.out.println("-------------------------------------------");
             System.out.println("Choose between eagle, tiger and lion");
             String animal=sc.nextLine();

@@ -119,10 +119,10 @@ public abstract class Animal implements Specie {
         return height;
     }
 
-    public <T> T getFieldValue(Field f,Class<T> t){
+    public Object getFieldValue(Field f){
         try {
             f.setAccessible(true);
-            return (T)f.get(this);
+            return f.get(this);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -133,13 +133,13 @@ public abstract class Animal implements Specie {
             String s="";
             s+="Class: " +this.getClass().getSimpleName()+" \n";
             for(Field f:this.getCharacteristicsTillAnimal()){
-                if(getFieldValue(f,f.getType())==null){
+                if(getFieldValue(f)==null){
                     s+=f.getName()+": Unknown"+"\n";
                 }else{
                     if(f.getName().equals("firstContact")){
-                        s+=f.getName()+": "+((Calendar)getFieldValue(f,f.getType())).getTime()+"\n";
+                        s+=f.getName()+": "+((Calendar)getFieldValue(f)).getTime()+"\n";
                     }else{
-                        s+=f.getName()+": "+getFieldValue(f,f.getType()).toString()+"\n";
+                        s+=f.getName()+": "+getFieldValue(f).toString()+"\n";
                     }
                 }
             }

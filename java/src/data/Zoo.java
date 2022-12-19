@@ -23,14 +23,6 @@ public class Zoo {
             animals.put(animal.getClass(),listSpecie);
         }
     }
-    private TailedAnimal longestTail(List<? extends TailedAnimal> tailedAnimals){
-        return tailedAnimals.stream().reduce((a,b)->a.getTailLenght()>b.getTailLenght()?a:b).get();
-    }
-
-    private WingedAnimal widestWingSpan(List<? extends WingedAnimal> wingedAnimals){
-        return wingedAnimals.stream().reduce((a,b)->a.getWingSpan()>b.getWingSpan()?a:b).get();
-    }
-
     private Animal heaviestAnimal(List<? extends Animal> animals){
         return animals.stream().reduce((a,b)->a.getWeight()<b.getWeight()?a:b).get();
     }
@@ -76,7 +68,7 @@ public class Zoo {
     public void animalStats(){
         Map<Field,List<Animal>> specialInFields=new HashMap<Field,List<Animal>>();
         for(List<? extends Animal> a:animals.values()){
-            if(a.size()>0){
+            if(!a.isEmpty()){
                 Animal highest=highestAnimal(a);
                 Animal shortest=shortestAnimal(a);
                 Animal lightest=lightiestAnimal(a);
@@ -92,7 +84,7 @@ public class Zoo {
                 Set<Field> fields1=distinctiveCharacteristics(a);
                 
                 for(Field f:fields1){
-                    if(!(f.getType() == String.class) && !(f.getType() == boolean.class)){
+                    if(f.getType() != String.class && f.getType() != boolean.class){
                        Animal bestInField=a.stream().reduce((a1,a2)->
                           Double.parseDouble( a1.getFieldValue(f,f.getType()).toString()) >
                            Double.parseDouble(a2.getFieldValue(f,f.getType()).toString())

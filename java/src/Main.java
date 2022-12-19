@@ -1,5 +1,6 @@
 import data.Animal;
 import data.Zoo;
+import data.acquatic.species.Carp;
 import data.tailed.TailedAnimal;
 import data.tailed.species.Lion;
 import data.tailed.species.Tiger;
@@ -13,12 +14,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Zoo zoo=new Zoo();
-        zoo.addAnimal(new Eagle.Builder().setName("gg").setWeight(12).setHeight(12.0).setWingedSpan(12.9).build());
-        zoo.addAnimal(new Eagle.Builder().setName("vv").setWeight(6).setHeight(36.0).setWingedSpan(24.3).build());
+        zoo.addAnimal(new Eagle.Builder().setName("gg").setWeight(12).setHeight(12.0).setPreferedFood("ok").setWingedSpan(12.9).build());
+        zoo.addAnimal(new Eagle.Builder().setName("vv").setWeight(6).setHeight(36.0).setPreferedFood("ok").setWingedSpan(24.3).build());
         zoo.addAnimal(new Lion.Builder().setName("hh").setWeight(48).setHeight(58).setTailLenght(25.6).build());
         zoo.addAnimal(new Lion.Builder().setName("yy").setWeight(49).setHeight(57).setTailLenght(33.6).build());
         zoo.addAnimal(new Tiger.Builder().setName("hh").setWeight(48).setHeight(58).setTailLenght(25.6).build());
-        zoo.addAnimal(new Tiger.Builder().setName("DD").setWeight(52).setHeight(36).setTailLenght(29.6).build());
+        zoo.addAnimal(new Tiger.Builder().setName("DD").setWeight(52).setHeight(36).setTailLenght(290.6).build());
+        zoo.addAnimal(new Carp.Builder().setName("222").setHeight(13).setWeight(1223).setPreferedFood("fish").setPinLenght(1830).build());
+        zoo.addAnimal(new Carp.Builder().setName("yyy").setHeight(12).setWeight(198).setPreferedFood("fish").setPinLenght(182).build());
         aggiungiAnimale(zoo);
       /*System.out.println(zoo.shortest().getHeight());
         System.out.println(zoo.Highest().getHeight());

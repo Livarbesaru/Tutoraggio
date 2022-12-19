@@ -58,7 +58,7 @@ public abstract class Animal implements Specie {
         this.name=builder.name;
         this.preferedFood= builder.preferedFood;
         this.age=builder.age;
-        this.firstContact=builder.firstContact;
+        this.firstContact=Calendar.getInstance();
         this.weight=builder.weight;
         this.height=builder.height;
     }
@@ -83,7 +83,7 @@ public abstract class Animal implements Specie {
         if(animalClass == Animal.class.getSuperclass()){
             return new Field[]{};
         }else{
-            return (Concat.concat(animalClass.getDeclaredFields(),getCharacteristics(animalClass.getSuperclass())));
+            return (Concat.concat(animalClass.getDeclaredFields(),getCharacteristicsTillAnimal(animalClass.getSuperclass())));
         }
     }
 
@@ -91,7 +91,7 @@ public abstract class Animal implements Specie {
         if(this.getClass() == Animal.class.getSuperclass()){
             return new Field[]{};
         }else{
-            return (Concat.concat(this.getClass().getDeclaredFields(),getCharacteristics(this.getClass().getSuperclass())));
+            return (Concat.concat(this.getClass().getDeclaredFields(),getCharacteristicsTillAnimal(this.getClass().getSuperclass())));
         }
     }
 
@@ -132,9 +132,16 @@ public abstract class Animal implements Specie {
     public String toString(){
             String s="";
             s+="Class: " +this.getClass().getSimpleName()+" \n";
-            s+="Name: " +this.name+" \n";
             for(Field f:this.getCharacteristicsTillAnimal()){
-                s+=f.getName()+" "+getFieldValue(f,f.getType()).toString()+"\n";
+                if(getFieldValue(f,f.getType())==null){
+                    s+=f.getName()+": Unknown"+"\n";
+                }else{
+                    if(f.getName().equals("firstContact")){
+                        s+=f.getName()+": "+((Calendar)getFieldValue(f,f.getType())).getTime()+"\n";
+                    }else{
+                        s+=f.getName()+": "+getFieldValue(f,f.getType()).toString()+"\n";
+                    }
+                }
             }
             return s;
     }

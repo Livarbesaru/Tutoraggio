@@ -1,16 +1,10 @@
 package data;
 
-import data.tailed.TailedAnimal;
-import data.winged.WingedAnimal;
-import data.winged.species.Eagle;
-import utility.Concat;
-
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Zoo {
-    private HashMap<Class,List<? extends Animal>> animals=new HashMap();
+    private HashMap<Class,List<? extends Animal>> animals=new HashMap<Class,List<? extends Animal>>();
 
     public <T extends Animal> void addAnimal(T animal){
         List<T> listSpecie=null;

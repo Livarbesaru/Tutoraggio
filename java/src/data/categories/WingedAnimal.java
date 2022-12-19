@@ -1,4 +1,4 @@
-package data.winged;
+package data.categories;
 
 import data.Animal;
 

@@ -1,9 +1,9 @@
 package utility;
 
 import data.Animal;
-import data.tailed.species.Lion;
-import data.tailed.species.Tiger;
-import data.winged.species.Eagle;
+import data.species.Lion;
+import data.species.Tiger;
+import data.species.Eagle;
 
 public class EntityFactory {
 

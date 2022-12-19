@@ -1,15 +1,8 @@
-import data.Animal;
 import data.Zoo;
-import data.acquatic.species.Carp;
-import data.tailed.TailedAnimal;
-import data.tailed.species.Lion;
-import data.tailed.species.Tiger;
-import data.winged.WingedAnimal;
-import data.winged.species.Eagle;
-import utility.EntityFactory;
-
-import java.util.Calendar;
-import java.util.Scanner;
+import data.species.Carp;
+import data.species.Lion;
+import data.species.Tiger;
+import data.species.Eagle;
 
 public class Main {
     public static void main(String[] args) {

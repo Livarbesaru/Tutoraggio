@@ -1,7 +1,6 @@
-package data.acquatic;
+package data.categories;
 
 import data.Animal;
-import data.tailed.TailedAnimal;
 
 public abstract class Fish extends Animal {
 

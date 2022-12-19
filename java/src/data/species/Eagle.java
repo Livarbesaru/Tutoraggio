@@ -1,11 +1,6 @@
-package data.winged.species;
+package data.species;
 
-import data.Animal;
-import data.winged.WingedAnimal;
-import utility.Concat;
-
-import java.lang.reflect.Field;
-import java.util.Set;
+import data.categories.WingedAnimal;
 
 public class Eagle extends WingedAnimal {
 

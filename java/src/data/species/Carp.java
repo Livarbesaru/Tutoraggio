@@ -1,6 +1,6 @@
-package data.acquatic.species;
+package data.species;
 
-import data.acquatic.Fish;
+import data.categories.Fish;
 
 public class Carp extends Fish {
 
